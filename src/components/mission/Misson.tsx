@@ -1,15 +1,7 @@
-import React from "react";
-import { useRef, useEffect, useState } from "react";
-import {
-  useScroll,
-  useMotionValueEvent,
-  useAnimate,
-  useAnimation,
-  useInView,
-  motion,
-  useTransform,
-} from "framer-motion";
-
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 const aim = [
   {
     "Uniting Gamers":
@@ -77,51 +69,93 @@ const contribure_cards = [
 function Misson() {
   const container = useRef(null);
   const missionRef = useRef(null);
+  const contribute_cardRef = useRef(null);
+  const activityRef = useRef(null!);
+  useGSAP(
+    () => {
+      gsap.registerPlugin(ScrollTrigger);
 
-  const [opacity, setOpacity] = useState<number>(0);
-  const [Yvalue, setYvalue] = useState<number>(100);
-  const { scrollYProgress } = useScroll({
-    target: missionRef,
-    offset: ["start end", "start center"],
-  });
-  // const Scroll_opacity = useTransform(scrollYProgress, [1, 0], [0, 2]);
-  const ytransform = useTransform(scrollYProgress, [1, 0], [50, 0]);
-  useMotionValueEvent(scrollYProgress, "change", (progress) => {
-    console.log(progress);
-    setOpacity(progress);
-    // setYvalue(ytransform.get());
-  });
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container.current,
+          start: "top 50%",
+          end: "15% 50%",
+          scrub: 2,
+          // markers: true,
+        },
+      });
 
-  // const [scope, animate] = useAnimate();
-  // const isInView = useInView(scope, {
-  //   once: true, // Trigger animation only once
-  // });
+      tl.from(".headding", {
+        opacity: 0,
+        y: 100,
+        duration: 1,
+      });
+      tl.from(".mission-img", {
+        opacity: 0,
+        y: 100,
+        duration: 1,
+        stagger: 0.5,
+      });
 
-  // const controls = useAnimation();
-  // useEffect(() => {
-  //   if (isInView) {
-  //     console.log("inview");
-  //     controls.start({ opacity: 1, y: 0 });
-  //   } else {
-  //     controls.start({ opacity: 0, y: 50 });
-  //   }
-  // }, [isInView]);
-
+      gsap.from(".contribute-card", {
+        y: 100,
+        duration: 2.5,
+        opacity: 0,
+        ease: "power1.inOut",
+        stagger: {
+          each: 1,
+          from: "start",
+          ease: "power3.inOut",
+        },
+        scrollTrigger: {
+          trigger: contribute_cardRef.current,
+          start: "25% 80%",
+          end: "80% 80%",
+          scrub: 2.5,
+          // markers: true,
+          // pin: true, // Assuming you want the pinning effect for the whole timeline
+        },
+      });
+      gsap.to(".activity-img", {
+        clipPath: "polygon(100% 0, 0 0, 0 100%, 100% 100%)",
+        duration: 2,
+        ease: "power1.inOut",
+        scrollTrigger: {
+          trigger: activityRef.current,
+          start: "top 50%",
+          end: "50% 50%",
+          scrub: true,
+          // markers: true,
+        },
+      });
+      gsap.to(".activity-items", {
+        x: 0,
+        duration: 2.5,
+        opacity: 1,
+        ease: "power1.inOut",
+        stagger: {
+          each: 1,
+          ease: "power1.inOut",
+        },
+        scrollTrigger: {
+          trigger: activityRef.current,
+          start: "top 80%",
+          end: "90% 80%",
+          scrub: 2.5,
+          // markers: true,
+        },
+      });
+    },
+    { scope: container }
+  );
   return (
     <div ref={container} className=" pt-12 py-24 box-center flex-col">
       <div
         id="picturediv"
         className="picture-div box-center bg-[url(/mission/mission_bg.webp)] bg-cover bg-center py-28 w-full"
       >
-        <motion.div
-          // initial={{ opacity: 0, y: 50 }}
-          // transition={{ duration: 1 }}
-          style={{ opacity: opacity }}
-          animate={{ y: Yvalue }}
-          className="box-center flex-col gap-12"
-          ref={missionRef}
-        >
-          <h1 className="text-4xl font-paladins text-wrap text-center">
+        <div className="box-center flex-col gap-12" ref={missionRef}>
+          <h1 className="text-4xl font-paladins text-wrap text-center headding">
             Mission & Vision of muplay.gg
           </h1>
           <div className="flex gap-5 max-md:flex-col items-center justify-center">
@@ -130,15 +164,17 @@ function Misson() {
               height={500}
               alt="vision"
               src={"/mission/mission.svg"}
+              className="mission-img"
             />
             <img
               width={500}
               height={500}
               alt="vision"
               src={"/mission/vision.svg"}
+              className="mission-img"
             />
           </div>
-        </motion.div>
+        </div>
       </div>
 
       <div className=" box-center flex-col gap-8 py-32">
@@ -173,13 +209,17 @@ function Misson() {
         </div>
       </div>
 
-      <div className="act flex w-[95%] gap-10 box-center max-md:flex-col py-12">
+      <div
+        ref={activityRef}
+        className="act flex w-[95%] gap-10 box-center max-md:flex-col py-12"
+      >
         <img
+          style={{ clipPath: "polygon(0 0, 0 0, 0 0, 0 0)" }}
           src="/mission/activities.webp"
           alt="activities"
           width={900}
           height={500}
-          className="w-1/2"
+          className="w-1/2 activity-img"
         />
         <div className="flex flex-col gap-8">
           <div>
@@ -201,7 +241,10 @@ function Misson() {
                     alt="activity"
                     src={"/mission/icon.webp"}
                   />
-                  <div className="box-center flex flex-col justify-start items-start">
+                  <div
+                    style={{ transform: `translateX(${(i + 1) * 10}%)` }}
+                    className={`flex flex-col justify-start items-start activity-items`}
+                  >
                     <span className="text-2xl font-bold">{e.title}</span>
                     <p className="w-1/2">{e.description}</p>
                   </div>
@@ -212,7 +255,7 @@ function Misson() {
         </div>
       </div>
 
-      <div className="box-center gap-6 flex-col py-24">
+      <div ref={contribute_cardRef} className="box-center gap-6 flex-col py-24">
         <p className="font-paladins text-4xl text-center text-wrap">
           How We Contribute to the Creative Community
         </p>
@@ -223,12 +266,15 @@ function Misson() {
         <div className="flex gap-12 pt-60 max-md:flex-col max-md:gap-48">
           {contribure_cards.map((e, i) => {
             return (
-              <div key={i} className="box-center relative z-0 group">
+              <div
+                key={i}
+                className="box-center relative z-0 group contribute-card"
+              >
                 <img
                   src={`/mission/cards/c${i + 1}img.webp`}
                   width={250}
                   height={250}
-                  className={`absolute -top-36 group-hover:scale-105 transition-all`}
+                  className={`absolute -top-[40%] group-hover:scale-105 transition-all`}
                   alt="creative"
                 />
                 <div className=" max-w-80 clip-top bg-gradient-to-t from-[#222222] to-[#151515]">

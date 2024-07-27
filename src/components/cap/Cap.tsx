@@ -1,3 +1,7 @@
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useRef } from "react";
 const details = [
   {
     title: "Promote μPlay.gg",
@@ -16,8 +20,37 @@ const details = [
 ];
 
 function Cap() {
+  const container = useRef(null);
+  useGSAP(
+    () => {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.from(".cap-card", {
+        y: 100,
+        duration: 2.5,
+        opacity: 0,
+        ease: "power1.inOut",
+        stagger: {
+          each: 1,
+          from: "start",
+          ease: "power3.inOut",
+        },
+        scrollTrigger: {
+          trigger: container.current,
+          start: "25% 80%",
+          end: "80% 80%",
+          scrub: 2.5,
+          // markers: true,
+          // pin: true, // Assuming you want the pinning effect for the whole timeline
+        },
+      });
+    },
+    { scope: container }
+  );
   return (
-    <div className="py-32 mb-64 box-center w-full bg-[url(/Cap/background.webp)] bg-cover bg-center text-center ">
+    <div
+      ref={container}
+      className="py-32 mb-64 box-center w-full bg-[url(/Cap/background.webp)] bg-cover bg-center text-center "
+    >
       <div className=" w-full h-full box-center flex-col gap-5">
         <h1 className="text-4xl font-paladins">Campus Ambassador Program</h1>
         <p>
@@ -28,7 +61,7 @@ function Cap() {
           {details.map((e, i) => (
             <div
               key={i}
-              className="box-center bg-[#1E1E1E] p-3 flex justify-between clip-box"
+              className="box-center bg-[#1E1E1E] p-3 flex justify-between clip-box cap-card"
             >
               <div className="w-1/2">
                 <h1 className="font-bold text-2xl">{e.title}</h1>

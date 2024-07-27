@@ -2,7 +2,7 @@ import styles from "./style.module.css";
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Button from "../button/page";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 

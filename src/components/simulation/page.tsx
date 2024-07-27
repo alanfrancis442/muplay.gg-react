@@ -2,19 +2,15 @@ import Button from "../button/page";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 function Simulate() {
   const container = useRef(null);
   const cardContainerRef = useRef(null);
-  const [loaded, setloaded] = useState(false);
-
-  useEffect(() => {
-    setloaded(true);
-  }, []);
 
   useGSAP(
     () => {
+      gsap.registerPlugin(ScrollTrigger);
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container.current,
@@ -75,32 +71,7 @@ function Simulate() {
         },
         scrollTrigger: {
           trigger: cardContainerRef.current,
-          start: "10% 80%",
-          end: "80% 80%",
-          scrub: 2.5,
-          // markers: true,
-          // pin: true, // Assuming you want the pinning effect for the whole timeline
-        },
-      });
-    },
-    { scope: container }
-  );
-
-  useGSAP(
-    () => {
-      gsap.to(".char-card", {
-        y: 0,
-        duration: 2.5,
-        opacity: 1,
-        ease: "power1.inOut",
-        stagger: {
-          each: 0.5,
-          from: "start",
-          ease: "power3.inOut",
-        },
-        scrollTrigger: {
-          trigger: cardContainerRef.current,
-          start: "10% 80%",
+          start: "50% 80%",
           end: "80% 80%",
           scrub: 2.5,
           // markers: true,
@@ -153,7 +124,7 @@ function Simulate() {
             return (
               <div
                 key={i}
-                className="relative group char-card opacity-1 translate-y-[0%]"
+                className="relative group char-card opacity-0 translate-y-[100%]"
               >
                 <img
                   src={`/simulate/card${i + 1}.webp`}

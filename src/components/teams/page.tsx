@@ -1,5 +1,7 @@
-import React from "react";
-
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useRef } from "react";
 const members = [
   {
     name: "Deepu s nath",
@@ -24,8 +26,37 @@ const members = [
 ];
 
 export default function Teams() {
+  const teamRef = useRef(null);
+  useGSAP(
+    () => {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.from(".people", {
+        y: 100,
+        duration: 2.5,
+        opacity: 0,
+        ease: "power1.inOut",
+        stagger: {
+          each: 1,
+          from: "start",
+          ease: "power3.inOut",
+        },
+        scrollTrigger: {
+          trigger: teamRef.current,
+          start: "25% 80%",
+          end: "80% 80%",
+          scrub: 2.5,
+          // markers: true,
+          // pin: true, // Assuming you want the pinning effect for the whole timeline
+        },
+      });
+    },
+    { scope: teamRef }
+  );
   return (
-    <div className="flex justify-center items-center py-16 flex-col gap-12 mb-16">
+    <div
+      ref={teamRef}
+      className="flex justify-center items-center py-16 flex-col gap-12 mb-16"
+    >
       <h1 className="text-4xl font-paladins">Our Teams</h1>
       <div className="box-center w-full">
         <div className="w-full box-center h-full">
@@ -34,7 +65,7 @@ export default function Teams() {
               return (
                 <div
                   key={i}
-                  className="box-center flex-col"
+                  className="box-center flex-col people"
                   style={{ alignItems: "center" }}
                 >
                   <img

@@ -1,7 +1,7 @@
-import React from "react";
-import { useState, useRef, useEffect } from "react";
-import { useScroll, useMotionValueEvent } from "framer-motion";
-
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 const text = [
   "Pavan's visionary contributions laid the foundation for μPlay.gg, turning a simple idea into a thriving community",
   "His legacy continues to inspire us, fueling our commitment to innovation, inclusivity, and excellence",
@@ -18,17 +18,26 @@ const Card = ({ text }: { text: string }) => {
 
 function Legacy() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [opacity, setopacity] = useState(0);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "center center"],
-  });
-  useMotionValueEvent(scrollYProgress, "change", (progress) => {
-    setopacity(progress);
-  });
-
+  useGSAP(
+    () => {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.from(containerRef.current, {
+        opacity: 0,
+        y: 100,
+        duration: 1,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+          end: "80% 80%",
+          // markers: true,
+          scrub: 1,
+        },
+      });
+    },
+    { scope: containerRef }
+  );
   return (
-    <div ref={containerRef} style={{ opacity }} className="md:px-28 p-5 mb-32">
+    <div ref={containerRef} className="md:px-28 p-5 mb-32">
       <div className="w-full bg-[#181616] box-center flex-col gap-8 md:p-10 p-8 clip-box">
         <h1 className="text-wrap">
           <span className="font-paladins text-4xl text-center text-wrap">

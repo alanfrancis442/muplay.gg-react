@@ -1,5 +1,5 @@
 "use client";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef } from "react";
 import Navbar from "./components/nav/page";
 import Landing from "./components/landing/page";
 import Question from "./components/question/question";
@@ -17,8 +17,6 @@ import LocomotiveScroll from "locomotive-scroll";
 
 export default function App() {
   const scrollRef = useRef<HTMLDivElement>(null!);
-  const [isClient, setIsClient] = useState(false);
-
   useLayoutEffect(() => {
     const locomotiveScroll = new LocomotiveScroll({
       el: scrollRef.current,

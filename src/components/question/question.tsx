@@ -1,12 +1,4 @@
-import { useState, useRef, useLayoutEffect } from "react";
-import {
-  motion,
-  useAnimation,
-  useInView,
-  useScroll,
-  useMotionValueEvent,
-  useTransform,
-} from "framer-motion";
+import { useState, useRef } from "react";
 import styles from "./style.module.css";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -17,13 +9,6 @@ function Question() {
   const container = useRef(null);
   const aboutContainer = useRef(null);
   const joinContainer = useRef(null);
-
-  const [opacity, setOpacity] = useState<number>(0);
-  const { scrollYProgress } = useScroll({ target: joinContainer });
-  const Scroll_opacity = useTransform(scrollYProgress, [1, 0], [0, 2]);
-  useMotionValueEvent(scrollYProgress, "change", (progress) => {
-    setOpacity(Scroll_opacity.get());
-  });
 
   useGSAP(
     () => {
@@ -94,6 +79,41 @@ function Question() {
           stagger: 0.5,
         }
       );
+      const tl2 = gsap.timeline({
+        scrollTrigger: {
+          trigger: joinContainer.current,
+          start: "top 90%",
+          end: "100% 50%",
+          scrub: 2,
+          // markers: true,
+        },
+      });
+      tl2
+        .fromTo(
+          "join-box-container",
+          {
+            opacity: 0,
+          },
+          {
+            duration: 1.5,
+            opacity: 1,
+            y: 0,
+            ease: "power3.inOut",
+          }
+        )
+        .fromTo(
+          ".join-box-text",
+          {
+            opacity: 0,
+          },
+          {
+            duration: 1.5,
+            opacity: 1,
+            y: 0,
+            ease: "power3.inOut",
+            stagger: 0.5,
+          }
+        );
     },
     { scope: container }
   );
@@ -201,17 +221,13 @@ function Question() {
           className="about-card opacity-1 -translate-y-28 max-md:-translate-y-10"
         />
       </div>
-      <motion.div
-        ref={joinContainer}
-        className="w-full box-center join-box-container"
-      >
-        <div
-          style={{ opacity: opacity }}
-          className="clip-box box-center join-box-child w-[90%] text-lg bg-[url(/questions/about.webp)] bg-cover bg-center translate-y-10"
-        >
-          <div className="join-box w-4/5 max-md:w-5/6 py-16 flex flex-col gap-8 justify-between text-center translate-y-10">
-            <h1 className="font-paladins text-4xl">Join the Journey</h1>
-            <p className="">
+      <div ref={joinContainer} className="w-full box-center join-box-container">
+        <div className="clip-box box-center join-box-child w-[90%] text-lg bg-[url(/questions/about.webp)] bg-cover bg-center translate-y-10">
+          <div className="join-box-text w-4/5 max-md:w-5/6 py-16 flex flex-col gap-8 justify-between text-center translate-y-10">
+            <h1 className="font-paladins text-4xl join-box-text">
+              Join the Journey
+            </h1>
+            <p className="join-box-text">
               Together, <b>µLearn</b> and <b>TILTLABS</b> propel μPlay.gg
               towards new heights, creating a space where gaming is not just a
               hobby but a lifestyle. Join us on this exciting journey as we
@@ -221,7 +237,7 @@ function Question() {
             <p>Welcome to μPlay.gg—where your gaming adventure begins.</p>
           </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
