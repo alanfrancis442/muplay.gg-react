@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "./components/nav/page";
 import Landing from "./components/landing/page";
 import Question from "./components/question/question";
@@ -8,7 +8,7 @@ import Cap from "./components/cap/Cap";
 import Events from "./components/allEvents/Events";
 import Simulate from "./components/simulation/page";
 import Teams from "./components/teams/page";
-import Career from "./components/career/Career";
+// import Career from "./components/career/Career";
 import Partners from "./components/partners/page";
 import Footer from "./components/footer/page";
 
