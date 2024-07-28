@@ -29,15 +29,16 @@
   }
 } */
 
+/* styles.css */
+.no-scroll {
+  overflow: hidden !important;
+}
+
 .box-center{
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.no-scroll {
-  overflow: hidden;
-}
-
 *{
   font-family: 'Rajdhani', sans-serif;
   margin: 0;

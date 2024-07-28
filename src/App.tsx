@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Navbar from "./components/nav/page";
 import Landing from "./components/landing/page";
 import Question from "./components/question/question";
@@ -12,42 +12,37 @@ import Career from "./components/career/Career";
 import Partners from "./components/partners/page";
 import Footer from "./components/footer/page";
 
-import LocomotiveScroll from "locomotive-scroll";
+import Lenis from "@studio-freight/lenis";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 export default function App() {
   const scrollRef = useRef<HTMLDivElement>(null!);
-  useLayoutEffect(() => {
-    const locomotiveScroll = new LocomotiveScroll({
-      el: scrollRef.current,
-      smooth: true,
-      lerp: 0.02,
-    });
-  }, []);
-
+  const [isLoading, setisLoading] = useState(true);
+  const lenis = new Lenis();
   // useLayoutEffect(() => {
-  //   setIsClient(true); // Component has mounted, we are now client-side
-  //   if (scrollRef.current && isClient) {
-  //     import("locomotive-scroll").then((LocomotiveScrollModule) => {
-  //       const LocomotiveScroll = LocomotiveScrollModule.default;
-  //       const locomotiveScroll = new LocomotiveScroll({
-  //         el: scrollRef.current,
-  //         smooth: true,
-  //         lerp: 0.02,
-  //       });
-  //       setTimeout(() => {
-  //         try {
-  //           locomotiveScroll.update();
-  //         } catch (e) {
-  //           console.error(e);
-  //         }
-  //       }, 5000);
 
-  //       return () => {
-  //         if (locomotiveScroll) locomotiveScroll.destroy();
-  //       };
-  //     });
-  //   }
-  // }, [isClient]); // Depend on isClient to re-run effect when it changes
+  // }, []);
+
+  useEffect(() => {
+    if (isLoading) {
+      console.log("paused");
+      lenis.stop();
+    } else {
+      console.log("started");
+      gsap.registerPlugin(ScrollTrigger);
+
+      lenis.on("scroll", ScrollTrigger.update);
+
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+
+      gsap.ticker.lagSmoothing(0);
+      lenis.start();
+    }
+  }, [isLoading]);
+
   return (
     <>
       <div
@@ -56,8 +51,8 @@ export default function App() {
         ref={scrollRef}
         className="overflow-hidden bg-black text-white absolute top-0 w-full min-h-[100dvh]"
       >
-        <Navbar />
-        <Landing />
+        <Navbar isLoading={isLoading} />
+        <Landing setisLoading={setisLoading} />
         <Question />
         <Legacy />
         <Misson />

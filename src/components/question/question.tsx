@@ -90,7 +90,7 @@ function Question() {
       });
       tl2
         .fromTo(
-          "join-box-container",
+          joinContainer.current,
           {
             opacity: 0,
           },

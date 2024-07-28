@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-const Navbar = () => {
+const Navbar = ({ isLoading }: { isLoading: boolean }) => {
   const navRef = useRef<HTMLDivElement | null>(null);
   const [show, setShow] = useState<boolean>(true);
   const [scrollValue, setScrollValue] = useState<number>(0);
@@ -17,6 +17,13 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrollValue]);
+  useEffect(() => {
+    if (isLoading) {
+      setShow(false);
+    } else {
+      setShow(true);
+    }
+  }, [isLoading]);
 
   const scrollToSection = (sectionId: string) => (event: React.MouseEvent) => {
     event.preventDefault(); // Prevent default anchor click behavior
@@ -45,7 +52,7 @@ const Navbar = () => {
                 <span
                   onClick={scrollToSection(`#${item}`)}
                   style={{ fontSize: "1.1vw" }}
-                  className="text-white p-2 hover:underline underline-offset-2 transition-all cursor-pointer"
+                  className="text-white text-lg p-2 hover:underline underline-offset-2 transition-all cursor-pointer"
                 >
                   {item.toUpperCase()}
                 </span>

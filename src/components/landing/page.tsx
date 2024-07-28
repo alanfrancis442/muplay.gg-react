@@ -6,7 +6,7 @@ import { useRef, useState, useEffect } from "react";
 import Button from "../button/page";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
-function Landing() {
+function Landing({ setisLoading }: { setisLoading: (value: boolean) => void }) {
   const [progress, setprogress] = useState(0);
   const container = useRef(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -19,6 +19,7 @@ function Landing() {
       ease: "power1.inOut",
       clipPath: "circle(100% at 50% 50%)",
       onComplete: () => {
+        setisLoading(false);
         videoRef.current?.play();
         animateText();
       },
@@ -34,7 +35,7 @@ function Landing() {
         }
         return prev + 1;
       });
-    }, 50);
+    }, 45);
     return () => {
       clearInterval(interval);
     };
