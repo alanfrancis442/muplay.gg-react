@@ -1,4 +1,3 @@
-"use client";
 import { useLayoutEffect, useRef } from "react";
 import Navbar from "./components/nav/page";
 import Landing from "./components/landing/page";
@@ -49,16 +48,15 @@ export default function App() {
   //     });
   //   }
   // }, [isClient]); // Depend on isClient to re-run effect when it changes
-
   return (
     <>
-      <Navbar />
       <div
         data-scroll
         data-scroll-container
         ref={scrollRef}
-        className="overflow-hidden bg-black text-white absolute top-0 w-full"
+        className="overflow-hidden bg-black text-white absolute top-0 w-full min-h-[100dvh]"
       >
+        <Navbar />
         <Landing />
         <Question />
         <Legacy />

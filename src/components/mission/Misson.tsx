@@ -71,6 +71,7 @@ function Misson() {
   const missionRef = useRef(null);
   const contribute_cardRef = useRef(null);
   const activityRef = useRef(null!);
+  const achiveref = useRef(null);
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger);
@@ -95,6 +96,25 @@ function Misson() {
         y: 100,
         duration: 1,
         stagger: 0.5,
+      });
+
+      gsap.from(".content", {
+        y: 100,
+        duration: 2.5,
+        opacity: 0,
+        ease: "power1.inOut",
+        stagger: {
+          each: 1,
+          from: "start",
+          ease: "power3.inOut",
+        },
+        scrollTrigger: {
+          trigger: achiveref.current,
+          start: "25% 80%",
+          end: "80% 80%",
+          scrub: 2.5,
+          // markers: true,
+        },
       });
 
       gsap.from(".contribute-card", {
@@ -177,7 +197,7 @@ function Misson() {
         </div>
       </div>
 
-      <div className=" box-center flex-col gap-8 py-32">
+      <div ref={achiveref} className=" box-center flex-col gap-8 py-32">
         <h1 className="text-4xl font-paladins flex-wrap text-center">
           what we aim to achieve
         </h1>
@@ -186,7 +206,7 @@ function Misson() {
           <div className="flex flex-col gap-5 p-12">
             {aim.map((e, i) => {
               return (
-                <div key={i} className="flex gap-2 bg-blue-">
+                <div key={i} className="flex gap-2 content">
                   <img
                     width={100}
                     height={100}

@@ -163,7 +163,7 @@ function Question() {
       className="flex flex-col justify-center items-center min-h-screen gap-56 py-32 sm:py-56 sm:pt-40 bg-black"
     >
       <div className="flex flex-col items-center justify-center w-[90%] sm:w-[55%] gap-4 text-center">
-        <div className={`${styles.cliptext} py-2`}>
+        <div className={` py-2`}>
           <h1
             className={`ani-content text-4xl font-paladins anitext overflow-hidden`}
           >

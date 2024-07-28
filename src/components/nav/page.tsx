@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-// import Link from "next/link";
-
 const Navbar = () => {
   const navRef = useRef<HTMLDivElement | null>(null);
   const [show, setShow] = useState<boolean>(true);
@@ -34,16 +32,16 @@ const Navbar = () => {
       style={{
         transform: show ? "translateY(0)" : "translateY(-100%)",
       }}
-      className="p-4 bg-transparent w-full md:block hidden fixed top-0 z-[99999] backdrop-blur-md transition-all duration-500"
+      className="p-4 bg-transparent w-full md:block hidden fixed top-0 z-[999] backdrop-blur-md transition-all duration-500"
     >
       <div className="container mx-auto flex justify-between items-center px-[2vw]">
         <div className="text-white text-[3vw] font-bold font-paladins">
           MUPLAY<span style={{ fontFamily: "arial" }}>.gg</span>
         </div>
         <div>
-          {/* {["home", "updates", "resources", "about", "contact us"].map(
+          {["home", "updates", "resources", "about", "contact us"].map(
             (item, index) => (
-              <Link href={`#${item}`} key={index}>
+              <a href={`#${item}`} key={index}>
                 <span
                   onClick={scrollToSection(`#${item}`)}
                   style={{ fontSize: "1.1vw" }}
@@ -51,9 +49,9 @@ const Navbar = () => {
                 >
                   {item.toUpperCase()}
                 </span>
-              </Link>
+              </a>
             )
-          )} */}
+          )}
         </div>
       </div>
     </nav>

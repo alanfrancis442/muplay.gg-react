@@ -18,7 +18,7 @@ function Simulate() {
           end: "50% 70%",
           scrub: 2,
           // markers: true,
-          pin: true, // Assuming you want the pinning effect for the whole timeline
+          // pin: true, // Assuming you want the pinning effect for the whole timeline
         },
       });
 
@@ -120,7 +120,7 @@ function Simulate() {
       >
         {Array(3)
           .fill(0)
-          .map((e, i) => {
+          .map((_, i) => {
             return (
               <div
                 key={i}
