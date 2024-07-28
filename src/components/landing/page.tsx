@@ -19,9 +19,9 @@ function Landing({ setisLoading }: { setisLoading: (value: boolean) => void }) {
       ease: "power1.inOut",
       clipPath: "circle(100% at 50% 50%)",
       onComplete: () => {
-        setisLoading(false);
         videoRef.current?.play();
         animateText();
+        setisLoading(false);
       },
     });
   });
@@ -35,7 +35,7 @@ function Landing({ setisLoading }: { setisLoading: (value: boolean) => void }) {
         }
         return prev + 1;
       });
-    }, 45);
+    }, 40);
     return () => {
       clearInterval(interval);
     };
@@ -64,7 +64,7 @@ function Landing({ setisLoading }: { setisLoading: (value: boolean) => void }) {
       <div className=" min-h-[100dvh] absolute w-full box-center flex-col text-white">
         <div className="flex justify-start flex-col gap-3">
           <div className="box-center text-4xl md:text-6xl font-bold">
-            <span className="font-paladins pr-5">muplay</span> is loading...
+            <span className="font-paladins pr-5">loading...</span>
           </div>
           <div
             style={{ width: `${progress}%` }}
@@ -78,7 +78,7 @@ function Landing({ setisLoading }: { setisLoading: (value: boolean) => void }) {
       <div
         id="home"
         ref={container}
-        className={`${styles.main} overflow-hidden relative  landing-clip`}
+        className={`${styles.main} overflow-hidden relative landing-clip`}
       >
         {/* <Image src="/landing/landing_cover.png" alt="landing" layout="fill" objectFit="cover" /> */}
         <video

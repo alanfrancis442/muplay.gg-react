@@ -39,7 +39,7 @@ const Navbar = ({ isLoading }: { isLoading: boolean }) => {
       style={{
         transform: show ? "translateY(0)" : "translateY(-100%)",
       }}
-      className="p-4 bg-transparent w-full md:block hidden fixed top-0 z-[999] backdrop-blur-md transition-all duration-500"
+      className="p-4 bg-transparent w-full md:block hidden fixed top-0 z-[99999999] backdrop-blur-md transition-all duration-500"
     >
       <div className="container mx-auto flex justify-between items-center px-[2vw]">
         <div className="text-white text-[3vw] font-bold font-paladins">

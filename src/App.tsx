@@ -19,7 +19,10 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 export default function App() {
   const scrollRef = useRef<HTMLDivElement>(null!);
   const [isLoading, setisLoading] = useState(true);
-  const lenis = new Lenis();
+  const lenis = new Lenis({
+    lerp: 0.05,
+    smoothWheel: true,
+  });
   // useLayoutEffect(() => {
 
   // }, []);
@@ -60,7 +63,7 @@ export default function App() {
         <Events />
         <Simulate />
         <Teams />
-        <Career />
+        {/* <Career /> */}
         <Partners />
         <Footer />
       </div>

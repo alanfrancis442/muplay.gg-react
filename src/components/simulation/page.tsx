@@ -14,11 +14,11 @@ function Simulate() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container.current,
-          start: "top 50%",
+          start: "top 60%",
           end: "50% 70%",
-          scrub: 2,
+          scrub: 1,
           // markers: true,
-          // pin: true, // Assuming you want the pinning effect for the whole timeline
+          pin: true, // Assuming you want the pinning effect for the whole timeline
         },
       });
 
@@ -38,13 +38,13 @@ function Simulate() {
             from: "start",
             ease: "power1.inOut",
           },
-        }
+        },
+        ">"
       ).fromTo(
         ".controller",
         {
           y: 100,
           opacity: 0,
-          stagger: 0.5,
         },
         {
           y: 0,
@@ -93,15 +93,15 @@ function Simulate() {
           src="/simulate/Console_l.webp"
           className="controller absolute -z-10 left-[-45%]"
           alt="simulate"
-          height={1000}
-          width={1000}
+          // height={1000}
+          // width={1000}
         />
         <img
           src="/simulate/Console_r.webp"
           className="controller absolute right-[-45%] -z-10 md:scale-[1.5] sm:scale-[1.2]"
           alt="simulate"
-          height={800}
-          width={800}
+          // height={800}
+          // width={800}
         />
         <h1 className="main-content font-paladins sm:text-6xl text-4xl">
           SIMULATE ‘24
