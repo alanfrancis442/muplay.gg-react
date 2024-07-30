@@ -239,7 +239,7 @@ function Misson() {
           alt="activities"
           width={900}
           height={500}
-          className="w-1/2 activity-img"
+          className="md:w-1/2 activity-img"
         />
         <div className="flex flex-col gap-8">
           <div>
