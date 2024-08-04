@@ -22,6 +22,8 @@ export default function App() {
   const lenis = new Lenis({
     lerp: 0.05,
     smoothWheel: true,
+    syncTouch: true,
+    syncTouchLerp: 0.05,
   });
   // useLayoutEffect(() => {
 
