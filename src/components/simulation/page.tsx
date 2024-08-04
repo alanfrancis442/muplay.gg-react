@@ -15,10 +15,10 @@ function Simulate() {
         scrollTrigger: {
           trigger: container.current,
           start: "top 60%",
-          end: "50% 70%",
+          end: "30% 70%",
           scrub: 1,
           // markers: true,
-          pin: true, // Assuming you want the pinning effect for the whole timeline
+          // pin: true, // Assuming you want the pinning effect for the whole timeline
         },
       });
 
@@ -51,7 +51,7 @@ function Simulate() {
           duration: 1.5,
           opacity: 1,
           stagger: {
-            each: 0.5,
+            amount: 0.5,
             from: "start",
             ease: "power1.inOut",
           },

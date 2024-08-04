@@ -29,7 +29,7 @@ export default function Page() {
   return (
     <div className="text-white w-full flex flex-col justify-center items-center gap-5 pb-12">
       <h1 className="text-4xl font-bold font-paladins">Our Partners</h1>
-      <div className="flex justify-center items-center gap-1 md:gap-8 ">
+      <div className="flex flex-wrap justify-center items-center gap-1 md:gap-8 ">
         {logo.map((item, index) => (
           <a
             key={index}
@@ -43,7 +43,7 @@ export default function Page() {
               alt="partner"
               width={150}
               height={150}
-              className="cursor-pointer"
+              className="cursor-pointer max-sm:w-24 max-sm:h-2w-24"
             />
           </a>
         ))}
