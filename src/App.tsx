@@ -37,14 +37,13 @@ export default function App() {
       console.log("started");
       gsap.registerPlugin(ScrollTrigger);
 
-      lenis.on("scroll", ScrollTrigger.update);
-
       gsap.ticker.add((time) => {
         lenis.raf(time * 1000);
       });
 
       gsap.ticker.lagSmoothing(0);
       lenis.start();
+      lenis.on("scroll", ScrollTrigger.update);
     }
   }, [isLoading]);
 
