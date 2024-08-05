@@ -17,6 +17,7 @@ export default function Events(): JSX.Element {
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.update();
       gsap.to(".carousel", {
         clipPath: "polygon(100% 0, 0 0, 0 100%, 100% 100%)",
         duration: 2,

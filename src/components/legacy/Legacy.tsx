@@ -20,7 +20,8 @@ function Legacy() {
   const containerRef = useRef<HTMLDivElement>(null);
   useGSAP(
     () => {
-      gsap.registerPlugin(ScrollTrigger);
+      // gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.update();
       gsap.from(containerRef.current, {
         opacity: 0,
         y: 100,

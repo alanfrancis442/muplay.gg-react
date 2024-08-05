@@ -74,8 +74,8 @@ function Misson() {
   const achiveref = useRef(null);
   useGSAP(
     () => {
-      gsap.registerPlugin(ScrollTrigger);
-
+      // gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.update();
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container.current,

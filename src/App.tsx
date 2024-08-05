@@ -44,6 +44,7 @@ export default function App() {
       lenis.start();
       lenis.on("scroll", ScrollTrigger.update);
       gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.update();
     }
   }, [isLoading]);
 
