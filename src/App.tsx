@@ -35,7 +35,6 @@ export default function App() {
       lenis.stop();
     } else {
       console.log("started");
-      gsap.registerPlugin(ScrollTrigger);
 
       gsap.ticker.add((time) => {
         lenis.raf(time * 1000);
@@ -44,6 +43,7 @@ export default function App() {
       gsap.ticker.lagSmoothing(0);
       lenis.start();
       lenis.on("scroll", ScrollTrigger.update);
+      gsap.registerPlugin(ScrollTrigger);
     }
   }, [isLoading]);
 
