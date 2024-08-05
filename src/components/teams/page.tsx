@@ -29,8 +29,7 @@ export default function Teams() {
   const teamRef = useRef(null);
   useGSAP(
     () => {
-      // gsap.registerPlugin(ScrollTrigger);
-      ScrollTrigger.update();
+      gsap.registerPlugin(ScrollTrigger);
       gsap.from(".people", {
         y: 100,
         duration: 2.5,

@@ -23,8 +23,7 @@ function Cap() {
   const container = useRef(null);
   useGSAP(
     () => {
-      // gsap.registerPlugin(ScrollTrigger);
-      ScrollTrigger.update();
+      gsap.registerPlugin(ScrollTrigger);
       gsap.from(".cap-card", {
         y: 100,
         duration: 2.5,
