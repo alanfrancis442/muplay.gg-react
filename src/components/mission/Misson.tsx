@@ -75,7 +75,10 @@ function Misson() {
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger);
+      // let mm  = gsap.matchMedia();
+      // mm.add("(min-width: 720px)", () => {
 
+      // });
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container.current,

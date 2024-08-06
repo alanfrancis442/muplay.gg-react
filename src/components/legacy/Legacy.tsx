@@ -18,20 +18,23 @@ const Card = ({ text }: { text: string }) => {
 
 function Legacy() {
   const containerRef = useRef<HTMLDivElement>(null);
+  let mm = gsap.matchMedia();
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger);
-      gsap.from(containerRef.current, {
-        opacity: 0,
-        y: 100,
-        duration: 1,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 80%",
-          end: "80% 80%",
-          // markers: true,
-          scrub: 1,
-        },
+      mm.add("(min-width: 720px)", () => {
+        gsap.from(containerRef.current, {
+          opacity: 0,
+          y: 100,
+          duration: 1,
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
+            end: "80% 80%",
+            // markers: true,
+            scrub: 1,
+          },
+        });
       });
     },
     { scope: containerRef }
