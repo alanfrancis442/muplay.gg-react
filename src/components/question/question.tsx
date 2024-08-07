@@ -9,111 +9,119 @@ function Question() {
   const container = useRef(null);
   const aboutContainer = useRef(null);
   const joinContainer = useRef(null);
-
+  let mm = gsap.matchMedia();
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger);
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: container.current,
-          start: "top 50%",
-          end: "15% 50%",
-          scrub: 2,
-          // markers: true,
-        },
-      });
-
-      tl.fromTo(
-        ".ani-content",
-        {
-          opacity: 0,
-          y: 50,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.5,
-          ease: "power1.inOut",
-          stagger: {
-            amount: 0.5,
-            from: "start",
-            ease: "power1.inOut",
-          },
-        }
-      );
-
-      gsap.to(".char-card", {
-        y: 0,
-        duration: 2.5,
-        opacity: 1,
-        ease: "power1.inOut",
-        stagger: {
-          each: 0.5,
-          ease: "power1.inOut",
-        },
-        scrollTrigger: {
-          trigger: cardContainerRef.current,
-          start: "top 80%",
-          end: "90% 80%",
-          scrub: 2.5,
-          // markers: true,
-        },
-      });
-
-      gsap.fromTo(
-        ".about-card",
-        {
-          opacity: 0,
-        },
-        {
+      mm.add("(min-width: 720px)", () => {
+        const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: aboutContainer.current,
+            trigger: container.current,
             start: "top 50%",
-            end: "35% 50%",
-            scrub: 1,
+            end: "15% 50%",
+            scrub: 2,
+            // markers: true,
           },
-          duration: 1.5,
-          opacity: 1,
-          ease: "power1.inOut",
-          stagger: 0.5,
-        }
-      );
-      const tl2 = gsap.timeline({
-        scrollTrigger: {
-          trigger: joinContainer.current,
-          start: "top 90%",
-          end: "100% 50%",
-          scrub: 2,
-          // markers: true,
-        },
-      });
-      tl2
-        .fromTo(
-          joinContainer.current,
+        });
+
+        tl.fromTo(
+          ".ani-content",
           {
             opacity: 0,
+            y: 50,
           },
           {
-            duration: 1.5,
             opacity: 1,
             y: 0,
-            ease: "power3.inOut",
+            duration: 1.5,
+            ease: "power1.inOut",
+            stagger: {
+              amount: 0.5,
+              from: "start",
+              ease: "power1.inOut",
+            },
           }
-        )
-        .fromTo(
-          ".join-box-text",
+        );
+
+        gsap.fromTo(
+          ".char-card",
+          {
+            y: 100,
+            opacity: 0,
+          },
+          {
+            y: 0,
+            duration: 3,
+            opacity: 1,
+            ease: "power1.inOut",
+            stagger: {
+              each: 1.5,
+              ease: "power1.inOut",
+            },
+            scrollTrigger: {
+              trigger: cardContainerRef.current,
+              start: "top 80%",
+              end: "90% 80%",
+              scrub: 2.5,
+              // markers: true,
+            },
+          }
+        );
+
+        gsap.fromTo(
+          ".about-card",
           {
             opacity: 0,
           },
           {
+            scrollTrigger: {
+              trigger: aboutContainer.current,
+              start: "top 50%",
+              end: "35% 50%",
+              scrub: 1,
+            },
             duration: 1.5,
             opacity: 1,
-            y: 0,
-            ease: "power3.inOut",
+            ease: "power1.inOut",
             stagger: 0.5,
           }
         );
+        const tl2 = gsap.timeline({
+          scrollTrigger: {
+            trigger: joinContainer.current,
+            start: "top 90%",
+            end: "100% 50%",
+            scrub: 2,
+            // markers: true,
+          },
+        });
+        tl2
+          .fromTo(
+            joinContainer.current,
+            {
+              opacity: 0,
+            },
+            {
+              duration: 1.5,
+              opacity: 1,
+              y: 0,
+              ease: "power3.inOut",
+            }
+          )
+          .fromTo(
+            ".join-box-text",
+            {
+              opacity: 0,
+            },
+            {
+              duration: 1.5,
+              opacity: 1,
+              y: 0,
+              ease: "power3.inOut",
+              stagger: 0.5,
+            }
+          );
+      });
     },
     { scope: container }
   );
@@ -160,7 +168,7 @@ function Question() {
     <div
       id="about"
       ref={container}
-      className="flex flex-col justify-center items-center min-h-screen gap-56 py-32 sm:py-56 sm:pt-40 bg-black"
+      className="flex flex-col justify-center items-center min-h-screen gap-56 max-sm:gap-16 py-56 sm:py-56 sm:pt-40 bg-black"
     >
       <div className="flex flex-col items-center justify-center w-[90%] sm:w-[55%] gap-4 text-center">
         <div className={` py-2`}>
@@ -196,7 +204,7 @@ function Question() {
           className="flex justify-between items-center flex-col md:flex-row gap-10 w-full grop relative z-50"
         >
           {data.map((e, i) => (
-            <div key={i} className="char-card translate-y-[100%] opacity-0">
+            <div key={i} className="char-card ">
               <QuestionCard index={i} content={e} />
             </div>
           ))}
