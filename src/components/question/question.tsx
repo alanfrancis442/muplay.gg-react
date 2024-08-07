@@ -168,7 +168,7 @@ function Question() {
     <div
       id="about"
       ref={container}
-      className="flex flex-col justify-center items-center min-h-screen gap-56 py-32 sm:py-56 sm:pt-40 bg-black"
+      className="flex flex-col justify-center items-center min-h-screen gap-56 max-sm:gap-16 py-56 sm:py-56 sm:pt-40 bg-black"
     >
       <div className="flex flex-col items-center justify-center w-[90%] sm:w-[55%] gap-4 text-center">
         <div className={` py-2`}>

@@ -23,25 +23,28 @@ function Cap() {
   const container = useRef(null);
   useGSAP(
     () => {
-      gsap.registerPlugin(ScrollTrigger);
-      gsap.from(".cap-card", {
-        y: 100,
-        duration: 2.5,
-        opacity: 0,
-        ease: "power1.inOut",
-        stagger: {
-          each: 1,
-          from: "start",
-          ease: "power3.inOut",
-        },
-        scrollTrigger: {
-          trigger: container.current,
-          start: "25% 80%",
-          end: "80% 80%",
-          scrub: 2.5,
-          // markers: true,
-          // pin: true, // Assuming you want the pinning effect for the whole timeline
-        },
+      let mm = gsap.matchMedia();
+      mm.add("(min-width: 720px)", () => {
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.from(".cap-card", {
+          y: 100,
+          duration: 2.5,
+          opacity: 0,
+          ease: "power1.inOut",
+          stagger: {
+            each: 1,
+            from: "start",
+            ease: "power3.inOut",
+          },
+          scrollTrigger: {
+            trigger: container.current,
+            start: "25% 80%",
+            end: "80% 80%",
+            scrub: 2.5,
+            // markers: true,
+            // pin: true, // Assuming you want the pinning effect for the whole timeline
+          },
+        });
       });
     },
     { scope: container }

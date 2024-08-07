@@ -30,24 +30,27 @@ export default function Teams() {
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger);
-      gsap.from(".people", {
-        y: 100,
-        duration: 2.5,
-        opacity: 0,
-        ease: "power1.inOut",
-        stagger: {
-          each: 1,
-          from: "start",
-          ease: "power3.inOut",
-        },
-        scrollTrigger: {
-          trigger: teamRef.current,
-          start: "25% 80%",
-          end: "80% 80%",
-          scrub: 2.5,
-          // markers: true,
-          // pin: true, // Assuming you want the pinning effect for the whole timeline
-        },
+      let mm = gsap.matchMedia();
+      mm.add("(min-width: 720px)", () => {
+        gsap.from(".people", {
+          y: 100,
+          duration: 2.5,
+          opacity: 0,
+          ease: "power1.inOut",
+          stagger: {
+            each: 1,
+            from: "start",
+            ease: "power3.inOut",
+          },
+          scrollTrigger: {
+            trigger: teamRef.current,
+            start: "25% 80%",
+            end: "80% 80%",
+            scrub: 2.5,
+            // markers: true,
+            // pin: true, // Assuming you want the pinning effect for the whole timeline
+          },
+        });
       });
     },
     { scope: teamRef }
